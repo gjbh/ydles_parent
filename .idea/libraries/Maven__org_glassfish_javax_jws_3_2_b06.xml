@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.glassfish:javax.jws:3.2-b06">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../../../../Apache/repository/org/glassfish/javax.jws/3.2-b06/javax.jws-3.2-b06.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../../../../../../Apache/repository/org/glassfish/javax.jws/3.2-b06/javax.jws-3.2-b06-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../../../../../Apache/repository/org/glassfish/javax.jws/3.2-b06/javax.jws-3.2-b06-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

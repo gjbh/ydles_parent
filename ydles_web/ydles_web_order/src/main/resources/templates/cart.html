@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<title>我的购物车</title>
+	<link rel="icon" href="/img/favicon.ico">
+
+	<!-- 引入样式 -->
+	<link rel="stylesheet" type="text/css" href="/css/index.css" />
+	<link rel="stylesheet" type="text/css" href="/css/all.css" />
+	<link rel="stylesheet" type="text/css" href="/css/pages-cart.css" />
+</head>
+
+<body>
+	<!--head-->
+	<!-- 头部栏位 -->
+	<!--页面顶部-->
+	<div id="nav-bottom">
+		<!--顶部-->
+		<div class="nav-top">
+			<div class="top">
+				<div class="py-container">
+					<div class="shortcut">
+						<!-- Logo -->
+						<div class="yui3-g Logo">
+							<div class="yui3-u Left logoArea">
+								<a class="logo-bd" title="动力二奢" href="index.html" target="_blank"></a>
+							</div>
+						</div>							
+						<!-- 搜索框 -->
+                         <div class="yui3-u Rit searchArea">
+							<div class="search">
+								<form action="" class="sui-form form-inline">
+									<!--searchAutoComplete-->
+									<div class="input-append">
+										<input type="text" id="autocomplete" class="input-error input-xxlarge" />
+										<button class="sui-btn btn-xlarge btn-danger" type="button"><a href="search.html" class="sousuo">搜索</a></button>
+									</div>
+								</form>
+							</div>
+						</div>
+
+						<div class="fr typelist">
+							<ul class="types">
+								<li class="f-item">
+									<a href="login.html" target="_blank">登录</a>	
+									<span class="signin">
+										<a href="register.html" target="_blank">免费注册</a>
+									</span>
+								</li>
+								<li class="f-item">
+									<span>
+										<a href="cart.html" target="_blank">我的购物车</a>
+									</span>
+								</li>
+								<li class="f-item">
+									<span>
+										<a href="myorder.html" target="_blank">我的订单</a>
+									</span>
+								</li>
+								<li class="f-item">
+									<span>
+										<a href="cooperation.html" target="_blank">合作招商</a>
+									</span>
+								</li>
+								<li class="f-item">
+									<span>
+										<a href="login-manage.html" target="_blank">商家后台</a>
+									</span>
+								</li>
+
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+	<div class="cart py-container" id="app">
+		<!--All goods-->
+		<div class="allgoods">
+			<h4>全部商品
+				<span></span>
+			</h4>
+			<div class="cart-main">
+				<div class="yui3-g cart-th">
+					<div class="yui3-u-1-4">
+						<input class="chooseAll" type="checkbox" name="" id="" value="" /> 全部</div>
+					<div class="yui3-u-1-4">商品</div>
+					<div class="yui3-u-1-8">单价（元）</div>
+					<div class="yui3-u-1-8">数量</div>
+					<div class="yui3-u-1-8">小计（元）</div>
+					<div class="yui3-u-1-8">操作</div>
+				</div>
+				<div class="cart-item-list">
+					<div class="cart-body">
+						<!-- vue loadlist -->
+						<div class="cart-list" v-for="item in items.orderItemList" :key="item.index">
+							<ul class="goods-list yui3-g">
+								<li class="yui3-u-1-24">
+									<input type="checkbox" name="chk_list" id="" value=""/>
+								</li>
+								<li class="yui3-u-6-24">
+									<div class="good-item">
+										<div class="item-img">
+											<img :src="item.image" />
+										</div>
+
+									</div>
+								</li>
+								<li class="yui3-u-5-24">
+									<div class="item-msg">{{item.name}}</div>
+								</li>
+								<li class="yui3-u-1-8">
+									<span class="price">{{item.price}}</span>
+								</li>
+								<li class="yui3-u-1-8">
+									<a href="javascript:void(0)" class="increment mins" @click="add(item.skuId,-1)">-</a>
+									<input autocomplete="off" type="text" v-model="item.num" @blur="add(item.skuId,item.num)" minnum="1" class="itxt" />
+									<a href="javascript:void(0)" class="increment plus" @click="add(item.skuId,1)">+</a>
+								</li>
+								<li class="yui3-u-1-8">
+									<span class="sum">{{item.num*item.price}}</span>
+								</li>
+								<li class="yui3-u-1-8">
+									<a href="#none">删除</a>
+									<br />
+									<a href="#none">移到收藏</a>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="cart-tool">
+				<div class="select-all">
+					<input class="chooseAll" type="checkbox" name="" id="" value="" />
+					<span>全选</span>
+				</div>
+				<div class="option">
+					<a href="#none">删除选中的商品</a>
+					<a href="#none">移到我的关注</a>
+					<a href="#none">清除下柜商品</a>
+				</div>
+				<div class="money-box">
+					<div class="chosed">已选择
+						<span>{{items.totalNum}}</span>件商品</div>
+					<div class="sumprice">
+						<span>
+							<em>总价（不含运费） ：</em>
+							<i class="summoney">¥{{items.totalMoney}}</i>
+						</span>
+						<span>
+							<em>已节省：</em>
+<!--							<i>-¥20.00</i>-->
+						</span>
+					</div>
+					<div class="sumbtn">
+						<a class="sum-btn" href="order.html" target="_blank">结算</a>
+					</div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div class="like">
+				<h4 class="kt">猜你喜欢</h4>
+				<div class="like-list">
+					<ul class="yui3-g">
+						<li class="yui3-u-1-9">
+							<div class="list-wrap">
+								<div class="p-img">
+									<img src="/img/_/itemlike01.png" />
+								</div>
+								<div class="attr">
+									<em>SAC PLAT BB 手袋</em>
+								</div>
+								<div class="price">
+									<strong>
+											<em>¥</em>
+											<i>16900</i>
+										</strong>
+								</div>
+							</div>
+						</li>
+						<li class="yui3-u-1-9">
+							<div class="list-wrap">
+								<div class="p-img">
+									<img src="/img/_/itemlike02.png" />
+								</div>
+								<div class="attr">
+									<em>TWIST 中号手袋</em>
+								</div>
+								<div class="price">
+									<strong>
+											<em>¥</em>
+											<i>31500</i>
+										</strong>
+								</div>
+							</div>
+						</li>
+						<li class="yui3-u-1-9">
+							<div class="list-wrap">
+								<div class="p-img">
+									<img src="/img/_/itemlike03.png" />
+								</div>
+								<div class="attr">
+									<em>POCHETTE MÉTIS 手袋</em>
+								</div>
+								<div class="price">
+									<strong>
+											<em>¥</em>
+											<i>33500</i>
+										</strong>
+								</div>
+							</div>
+						</li>
+						<li class="yui3-u-1-9">
+							<div class="list-wrap">
+								<div class="p-img">
+									<img src="/img/_/itemlike04.png" />
+								</div>
+								<div class="attr">
+									<em>POCHETTE MÉTIS 手袋</em>
+								</div>
+								<div class="price">
+									<strong>
+											<em>¥</em>
+											<i>20800</i>
+										</strong>
+								</div>
+							</div>
+						</li>
+						<li class="yui3-u-1-9">
+							<div class="list-wrap">
+								<div class="p-img">
+									<img src="/img/_/itemlike05.png" />
+								</div>
+								<div class="attr">
+									<em>PSERPENTI FOREVER 手提包</em>
+								</div>
+								<div class="price">
+									<strong>
+											<em>¥</em>
+											<i>29000</i>
+										</strong>
+								</div>
+							</div>
+						</li>
+						<li class="yui3-u-1-9">
+							<div class="list-wrap">
+								<div class="p-img">
+									<img src="/img/_/itemlike06.png" />
+								</div>
+								<div class="attr">
+									<em>WANG X BVLGARI联名系列 腰包</em>
+								</div>
+								<div class="price">
+									<strong>
+											<em>¥</em>
+											<i>19300</i>
+										</strong>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 底部栏位 -->
+	<!--页面底部-->
+	<div class="clearfix footer">
+		<div class="py-container">
+			<div class="footlink">
+				<div class="clearfix Mod-list">
+					<div class="yui3-g">
+						<div class="yui3-u-1-9">
+							<h4>新手指南</h4>
+							<ul class="unstyled">
+								<li>注册新会员</li>
+								<li>购物流程</li>
+								<li>退换货流程</li>
+								<li>常见问题</li>
+								<li>购物指南</li>
+							</ul>
+
+						</div>
+						<div class="yui3-u-1-9">
+							<h4>购物帮助</h4>
+							<ul class="unstyled">
+								<li>付款</li>
+								<li>配送</li>
+								<li>包裹签收</li>
+								<li>物流查询</li>
+								<li>换货及退货</li>
+							</ul>
+						</div>
+						<div class="yui3-u-1-9">
+							<h4>支付方式</h4>
+							<ul class="unstyled">
+								<li>货到付款</li>
+								<li>在线支付</li>
+								<li>分期付款</li>
+								<li>支付问题</li>
+								<li>发票说明</li>
+							</ul>
+						</div>
+						<div class="yui3-u-1-9">
+							<h4>售后服务</h4>
+							<ul class="unstyled">
+								<li>售后政策</li>
+								<li>价格保护</li>
+								<li>退款说明</li>
+								<li>返修/退换货</li>
+								<li>取消订单</li>
+							</ul>
+						</div>
+						<div class="yui3-u-1-9">
+							<h4>法律咨询</h4>
+							<ul class="unstyled">
+								<li>隐私条款</li>
+								<li>销售条款与条件</li>
+								<li>网站使用条款</li>
+								<li>行为准则</li>
+								<li>法律声明</li>
+							</ul>
+						</div>
+						<div class="yui3-u-1-7">
+							<h4>帮助中心</h4>
+							<img src="/img/wx_cz.jpg">
+						</div>
+					</div>
+erf				</div>
+				<div class="Mod-copyright">
+					<p>地址：太原市万柏林区公元时代城 邮编：030000 电话：400-000-0000</p>
+					<p>京ICP备08001421号京公网安备110108007702</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--页面底部END-->
+	<script type="text/javascript" src="/js/plugins/jquery/jquery.min.js"></script>
+	<!-- 引入组件库 -->
+	<script src="/js/vue.js"></script>
+	<script src="/js/all.js"></script>
+	<script src="/js/axios.js"></script>
+	<script src="https://cdn.bootcss.com/element-ui/2.5.4/index.js"></script>
+
+
+	<script type="text/javascript">
+		$(".chooseAll").click(function () {
+			$("input[name='chk_list']").prop("checked", $(this).prop("checked"));
+		})
+	</script>
+	<script th:inline="javascript">
+		var app = new Vue({
+			el:"#app",
+			data:{
+				items:[[${items}]]
+			},
+			methods:{
+				add:function (skuId,num) {
+					axios.get("/api/wcart/add?skuId="+skuId+"&num="+num).then(function (resp) {
+						if (resp.data.flag){
+							app.items=resp.data.data;
+						}
+					})
+				}
+			}
+		})
+	</script>
+
+</body>
+
+</html>

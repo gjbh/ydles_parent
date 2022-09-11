@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<title>结算页</title>
+    <link rel="stylesheet" type="text/css" href="/css/all.css" />
+    <link rel="stylesheet" type="text/css" href="/css/pages-getOrderInfo.css" />
+</head>
+
+<body>
+	<!--head-->
+	<!-- 头部栏位 -->
+	<!--页面顶部-->
+	<div id="nav-bottom">
+		<!--顶部-->
+		<div class="nav-top">
+			<div class="top">
+				<div class="py-container">
+					<div class="shortcut">
+						<!-- Logo -->
+						<div class="yui3-g Logo">
+							<div class="yui3-u Left logoArea">
+								<a class="logo-bd" title="动力二奢" href="index.html" target="_blank"></a>
+							</div>
+						</div>							
+						<!-- 搜索框 -->
+                         <div class="yui3-u Rit searchArea">
+							<div class="search">
+								<form action="" class="sui-form form-inline">
+									<!--searchAutoComplete-->
+									<div class="input-append">
+										<input type="text" id="autocomplete" class="input-error input-xxlarge" />
+										<button class="sui-btn btn-xlarge btn-danger" type="button"><a href="search.html" class="sousuo">搜索</a></button>
+									</div>
+								</form>
+							</div>
+						</div>
+
+						<div class="fr typelist">
+							<ul class="types">
+								<li class="f-item">
+									<a href="login.html" target="_blank">登录</a>	
+									<span class="signin">
+										<a href="register.html" target="_blank">免费注册</a>
+									</span>
+								</li>
+								<li class="f-item">
+									<span>
+										<a href="cart.html" target="_blank">我的购物车</a>
+									</span>
+								</li>
+								<li class="f-item">
+									<span>
+										<a href="myorder.html" target="_blank">我的订单</a>
+									</span>
+								</li>
+								<li class="f-item">
+									<span>
+										<a href="cooperation.html" target="_blank">合作招商</a>
+									</span>
+								</li>
+								<li class="f-item">
+									<span>
+										<a href="login-manage.html" target="_blank">商家后台</a>
+									</span>
+								</li>
+
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+	<div class="cart py-container" id="app">
+		<!--主内容-->
+		<div class="checkout py-container">
+			<div class="checkout-tit">
+				<h4 class="tit-txt">填写并核对订单信息</h4>
+			</div>
+			<div class="checkout-steps">
+				<!--收件人信息-->
+				<div class="step-tit">
+					<h5>收件人信息<span></span></h5>
+				</div>
+				<div class="step-cont">
+					<div class="addressInfo">
+						<ul class="addr-detail">
+							<li class="addr-item">
+								<div class="choose-address" th:each="addr,addressStat:${address}">
+									<div class="con name selected" th:classappend="${addr.isDefault}==1?'selected':''"><a href="javascript:;" ><em th:text="${addr.contact}"></em><span title="点击取消选择"></span></a></div>
+									<div class="con address">
+										<span class="place"><em th:text="${addr.address}"></em></span>
+										<span class="phone"><em th:text="${addr.phone}"></em></span>
+										<span class="base" th:if="${addr.isDefault}==1">默认地址</span>
+									</div>	
+									<div class="clearfix"></div>									
+								</div>
+							</li>							
+						</ul>						
+						 <!--确认地址-->
+					</div>
+				</div>
+				<div class="hr"></div>
+				<!--支付和送货-->
+				<div class="payshipInfo">
+					<div class="step-tit">
+						<h5>支付方式</h5>
+					</div>
+					<div class="step-cont">
+						<ul class="payType">
+							<li class="selected" th:@click="|order.payType=1|">在线支付<span title="点击取消选择"></span></li>
+							<li th:@click="|order.payType=0|">货到付款<span title="点击取消选择"></span></li>
+						</ul>
+					</div>
+					<div class="hr"></div>
+					<div class="step-tit">
+						<h5>送货清单</h5>
+					</div>
+					<div class="step-cont">
+						<ul class="send-detail">
+							<li>
+								<div class="sendType">
+									<span>配送方式：</span>
+									<ul>
+										<li>
+											<div class="con express">天天快递</div>
+											<div class="con delivery">配送时间：预计8月10日（周三）09:00-15:00送达</div>
+										</li>
+									</ul>
+								</div>
+								<div class="sendGoods">
+									<span>商品清单：</span>
+									<ul class="yui3-g" th:each="cart,cartList:${carts}">
+										<li class="yui3-u-1-9">
+											<span><img src="/img/goods.png"/></span>
+										</li>
+										<li class="yui3-u-7-12">
+											<div class="desc" th:text="${cart.name}"></div>
+											<div class="seven">7天无理由退货</div>
+										</li>
+										<li class="yui3-u-1-12">
+											<div class="price" th:text="${cart.price}"></div>
+										</li>
+										<li class="yui3-u-1-12">
+											<div class="num" th:text="${cart.num}"></div>
+										</li>
+										<li class="yui3-u-1-12">
+											<div class="num" th:text="${cart.num}*${cart.price}"></div>
+										</li>
+										<li class="yui3-u-1-12">
+											<div class="exit">有货</div>
+										</li>
+									</ul>
+										</div>
+								</li>
+						</ul>
+					</div>
+					<div class="hr"></div>
+				</div>
+				<div class="linkInfo">
+					<div class="step-tit">
+						<h5>发票信息</h5>
+					</div>
+					<div class="step-cont">
+						<span>普通发票（电子）</span>
+						<span>个人</span>
+						<span>明细</span>
+					</div>
+				</div>
+				<div class="cardInfo">
+					<div class="step-tit">
+						<h5>使用优惠/抵用</h5>
+						<span>无</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clearfix trade">
+			<div class="fc-price">应付金额:　<span class="price">¥<em th:text="${totalMoney}"></em></span></div>
+			<div class="fc-receiverInfo">
+				寄送至:
+				<span id="receive-address">{{order.receiveAddress}}</span>
+				收货人：<span id="receive-name">{{order.receiveContact}}</span>
+				<span id="receive-phone">{{order.receiveMobile}}</span>
+			</div>
+		</div>
+		<div class="submit">
+			<a class="sui-btn btn-danger btn-xlarge" href="javascript:void(0)" @click="add()">提交订单</a>
+		</div>
+	</div>
+	<!-- 底部栏位 -->
+	<!--页面底部-->
+	<div class="clearfix footer">
+		<div class="py-container">
+			<div class="footlink">
+				<div class="clearfix Mod-list">
+					<div class="yui3-g">
+						<div class="yui3-u-1-9">
+							<h4>新手指南</h4>
+							<ul class="unstyled">
+								<li>注册新会员</li>
+								<li>购物流程</li>
+								<li>退换货流程</li>
+								<li>常见问题</li>
+								<li>购物指南</li>
+							</ul>
+
+						</div>
+						<div class="yui3-u-1-9">
+							<h4>购物帮助</h4>
+							<ul class="unstyled">
+								<li>付款</li>
+								<li>配送</li>
+								<li>包裹签收</li>
+								<li>物流查询</li>
+								<li>换货及退货</li>
+							</ul>
+						</div>
+						<div class="yui3-u-1-9">
+							<h4>支付方式</h4>
+							<ul class="unstyled">
+								<li>货到付款</li>
+								<li>在线支付</li>
+								<li>分期付款</li>
+								<li>支付问题</li>
+								<li>发票说明</li>
+							</ul>
+						</div>
+						<div class="yui3-u-1-9">
+							<h4>售后服务</h4>
+							<ul class="unstyled">
+								<li>售后政策</li>
+								<li>价格保护</li>
+								<li>退款说明</li>
+								<li>返修/退换货</li>
+								<li>取消订单</li>
+							</ul>
+						</div>
+						<div class="yui3-u-1-9">
+							<h4>法律咨询</h4>
+							<ul class="unstyled">
+								<li>隐私条款</li>
+								<li>销售条款与条件</li>
+								<li>网站使用条款</li>
+								<li>行为准则</li>
+								<li>法律声明</li>
+							</ul>
+						</div>
+						<div class="yui3-u-1-7">
+							<h4>帮助中心</h4>
+							<img src="./img/wx_cz.jpg">
+						</div>
+					</div>
+				</div>
+				<div class="Mod-copyright">
+					<p>地址：太原市万柏林区公元时代城 邮编：030000 电话：400-000-0000</p>
+					<p>京ICP备08001421号京公网安备110108007702</p>
+				</div>
+			</div>
+		</div>
+	</div>
+<!--页面底部END-->
+<script type="text/javascript" src="/js/plugins/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/axios.js"></script>
+	<script type="text/javascript" src="/js/vue.js"></script>
+<script>
+
+$(function(){
+	$(".address").hover(function(){
+		$(this).addClass("address-hover");	
+	},function(){
+		$(this).removeClass("address-hover");	
+	});
+	
+	$(".choose-address .name").click(function(){
+		 $(this).addClass("selected");
+		 $(this).parent().siblings().children('.name').removeClass("selected");
+		 var place = $(this).siblings('.address').children('.place').text();
+		 var phone = $(this).siblings('.address').children('.phone').text();
+		 $("#receive-name").text($(this).text());
+		 $("#receive-address").text(place);
+		 $("#receive-phone").text(phone)
+	});
+	$(".payType li").click(function(){
+		 $(this).toggleClass("selected").siblings().removeClass("selected");	
+	});
+})
+</script>
+	<script type="text/javascript">
+		$(".chooseAll").click(function () {
+			$("input[name='chk_list']").prop("checked", $(this).prop("checked"));
+		})
+	</script>
+	<script th:inline="javascript">
+		var app = new Vue({
+			el:"#app",
+			data:{
+				order:{'receiveContact':[[${deAddr.contact}]],
+					'receiveMobile':[[${deAddr.phone}]],
+					'receiveAddress':[[${deAddr.address}]],
+					'payType':1
+				}
+			},
+			methods:{
+				chooseAddr: function (contact,mobile,address){
+					app.$set(app.order,'receiveContact',contact);
+					app.$set(app.order,'receiveMobile',mobile);
+					app.$set(app.order,'receiveAddress',address);
+				},
+				add:function (){
+					axios.post('/api/worder/add',this.order).then(function (resp){
+					if(resp.data.flag){
+						//alert("添加订单成功")
+						var orderId=resp.data.data;
+						location.href="/api/worder/toPayPage?orderId="+orderId+"&paymoney="+paymoney;
+					}else{
+						alert("添加订单失败")
+					}
+					})
+
+			}
+			}
+		})
+	</script>
+
+</body>
+
+</html>

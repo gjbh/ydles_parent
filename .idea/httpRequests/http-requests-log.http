@@ -1,0 +1,241 @@
+POST http://localhost:9006/admin/login
+content-type: application/json
+
+{"loginName":"test1","password":"1234561"}
+
+<> 2022-04-05T220116.200.json
+
+###
+
+POST http://localhost:9006/admin/login
+content-type: application/json
+
+{"loginName":"test1","password":"123456"}
+
+<> 2022-04-05T220110.200.json
+
+###
+
+POST http://localhost:9006/admin/login
+content-type: application/json
+
+{"loginName":"test1","password":"123456"}
+
+<> 2022-04-05T215738.200.json
+
+###
+
+POST http://localhost:9006/admin/login
+content-type: application/json
+
+{"loginName":"test1","password":"123456"}
+
+<> 2022-04-05T215557.200.json
+
+###
+
+POST http://localhost:9006/admin/login
+content-type: application/json
+
+{"loginName":"test1","password":"12346"}
+
+<> 2022-04-05T215549.200.json
+
+###
+
+POST http://localhost:9006/admin/login
+content-type: application/json
+
+{"loginName":"test1","password":"12346"}
+
+<> 2022-04-05T215541.200.json
+
+###
+
+POST http://localhost:9006/admin/login
+content-type: application/json
+
+{"loginName":"test1","password":"123456"}
+
+<> 2022-04-05T215532.200.json
+
+###
+
+POST http://localhost:9006/admin/login
+content-type: application/json
+
+{"loginName":"test1","password":"123456"}
+
+<> 2022-04-05T215244.200.json
+
+###
+
+POST http://localhost:9006/admin/login
+content-type: application/json
+
+{"loginName":"test1","password":"123456"}
+
+<> 2022-04-05T213936.200.json
+
+###
+
+POST http://localhost:9006/admin/login
+content-type: application/json
+
+{"loginName":"test1","password":"123456"}
+
+<> 2022-04-05T213928.200.json
+
+###
+
+POST http://localhost:9006/admin/login
+content-type: application/json
+
+{"loginName":"test1","password":"123456"}
+
+<> 2022-04-05T213916.200.json
+
+###
+
+POST http://localhost:9006/admin/login
+content-type: application/json
+
+{"loginName":"test1","password":"123456"}
+
+<> 2022-04-05T213912.200.json
+
+###
+
+POST http://localhost:9006/admin/login
+content-type: application/json
+
+{"loginName":"test1","password":"1234560"}
+
+<> 2022-04-05T213900.200.json
+
+###
+
+POST http://localhost:9006/admin/login
+content-type: application/json
+
+{"loginName":"test1","password":"1234560"}
+
+<> 2022-04-05T213615.200.json
+
+###
+
+POST http://localhost:9006/admin/login
+content-type: application/json
+
+{"loginName":"test1","password":"12346"}
+
+<> 2022-04-05T213505.200.json
+
+###
+
+POST http://localhost:9006/admin/login
+content-type: application/json
+
+{"loginName":"test1","password":"12346"}
+
+<> 2022-04-05T213343.200.json
+
+###
+
+POST http://localhost:9006/admin/login
+content-type: application/json
+
+{"loginName":"test1","password":"12346"}
+
+<> 2022-04-05T213250.200.json
+
+###
+
+POST http://localhost:9006/admin/login
+content-type: application/json
+
+{"loginName":"test1","password":"12346"}
+
+<> 2022-04-05T213214.200.json
+
+###
+
+POST http://localhost:9006/admin/login
+content-type: application/json
+
+{"loginName":"test1","password":"12346"}
+
+<> 2022-04-05T213203.200.json
+
+###
+
+POST http://localhost:9006/admin/login
+content-type: application/json
+
+{"loginName":"test1","password":"123456"}
+
+<> 2022-04-05T213151.200.json
+
+###
+
+POST http://localhost:9006/admin
+content-type: application/json
+
+{"loginName":"test1","password":"123456","status":"1"}
+
+<> 2022-04-05T205333.200.json
+
+###
+
+POST http://localhost:9006/admin
+content-type: application/json
+{"loginName": "test1","password":"123456","status":"1"}
+
+<> 2022-04-05T205108.400.html
+
+###
+
+POST http://localhost:9006/admin/add
+content-type: application/json
+{"loginName": "test1","password":"123456","status":"1"}
+
+<> 2022-04-05T204915.400.html
+
+###
+
+POST http://localhost:9008/file/upload
+
+###
+
+GET http://localhost:9001/brand/findAll
+
+<> 2022-03-31T185317.200.json
+
+###
+
+GET http://localhost:9011/brand/findAll
+
+###
+
+GET http://localhost:9001/brand/search
+
+<> 2022-03-31T175924.200.json
+
+###
+
+GET http://localhost:9011/brand/findAll
+
+###
+
+GET http://localhost:9011/brand/findAll
+
+###
+
+GET http://localhost:9011/brand/findAll
+
+###
+
+GET http://localhost:9011/brand/findAll
+
+###
+

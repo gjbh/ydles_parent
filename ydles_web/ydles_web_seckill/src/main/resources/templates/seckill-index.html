@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+	<title>动力二奢秒杀-正品秒杀！</title>
+	<link rel="icon" href="/img/favicon.ico">
+
+	<!-- 引入样式 -->
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+
+	<link rel="stylesheet" type="text/css" href="/css/all.css" />
+	<link rel="stylesheet" type="text/css" href="/css/pages-seckill-index.css" />
+
+</head>
+
+<body>
+	<!-- 头部栏位 -->
+	<!--页面顶部-->
+	<div id="nav-bottom">
+		<!--顶部-->
+		<div class="nav-top">
+			<div class="top">
+				<div class="py-container">
+					<div class="shortcut">
+						<!-- Logo -->
+						<div class="yui3-g Logo">
+							<div class="yui3-u Left logoArea">
+								<a class="logo-bd" title="动力二奢" href="index.html" target="_blank"></a>
+							</div>
+						</div>
+						<!-- 搜索框 -->
+                         <div class="yui3-u Rit searchArea">
+							<div class="search">
+								<form action="" class="sui-form form-inline">
+									<!--searchAutoComplete-->
+									<div class="input-append">
+										<input type="text" id="autocomplete" class="input-error input-xxlarge" />
+										<button class="sui-btn btn-xlarge btn-danger" type="button"><a href="search.html" class="sousuo">搜索</a></button>
+									</div>
+								</form>
+							</div>
+						</div>
+
+						<div class="fr typelist">
+							<ul class="types">
+								<li class="f-item">
+									<a href="login.html" target="_blank">登录</a>
+									<span class="signin">
+										<a href="register.html" target="_blank">免费注册</a>
+									</span>
+								</li>
+								<li class="f-item">
+									<span>
+										<a href="cart.html" target="_blank">我的购物车</a>
+									</span>
+								</li>
+								<li class="f-item">
+									<span>
+										<a href="myorder.html" target="_blank">我的订单</a>
+									</span>
+								</li>
+								<li class="f-item">
+									<span>
+										<a href="cooperation.html" target="_blank">合作招商</a>
+									</span>
+								</li>
+								<li class="f-item">
+									<span>
+										<a href="login-manage.html" target="_blank">商家后台</a>
+									</span>
+								</li>
+
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+	<div class="py-container index" id="app">
+		<!--banner-->
+		<div class="banner">
+			<img src="/img/_/banner.png" class="img-responsive" alt="">
+		</div>
+		<!--秒杀时间-->
+		<div class="sectime">
+			<div class="item-time "
+				 v-for="(item,index) in dateMenus"
+				 :class="['item-time',index==ctime?'active':'']"
+				 @click="ctime=index;searchList(item)">
+				<!--            <div class="time-clock">{{item}}</div>-->
+				<div class="time-clock">{{item | dateFilter('HH:mm')}}</div>
+				<div class="time-state-on">
+					<span class="on-text" v-if="index==0">快抢中</span>
+					<span class="on-over" v-if="index==0">距离结束：{{timedown(alltimes[index])}}</span>
+
+					<span class="on-text" v-if="index>0">即将开始</span>
+					<span class="on-over" v-if="index>0">距离开始：{{timedown(alltimes[index])}}</span>
+				</div>
+			</div>
+		</div>
+			<!--商品列表-->
+		<div class="goods-list">
+			<ul class="seckill" id="seckill">
+				<li class="seckill-item" v-for="item in goodslist" :key="item">
+					<div class="pic">
+						<img src="/img/_/list.jpg" alt=''>
+					</div>
+					<div class="intro">
+						<span>{{item.intro}}</span>
+					</div>
+					<div class='price'>
+						<b class='sec-price'>￥{{item.newprice}}</b>
+						<b class='ever-price'>￥{{item.oldprice}}</b>
+					</div>
+					<div class='num'>
+						<div>已售{{item.num-item.stockCount}}</div>
+						<div class='progress'>
+							<div class='sui-progress progress-danger'>
+								<span style='width: 70%;' class='bar'></span>
+							</div>
+						</div>
+						<div>剩余
+							<b class='owned'>{{item.stockCount}}</b>件</div>
+					</div>
+					<a class='sui-btn btn-block btn-buy'  href='javascript:void(0)' @click="add(item.id)">立即抢购</a>
+				</li>
+			</ul>
+		</div>
+		</div>
+	<!--回到顶部-->
+
+	<!-- 底部栏位 -->
+	<!--页面底部-->
+	<div class="clearfix footer">
+		<div class="py-container">
+			<div class="footlink">
+				<div class="clearfix Mod-list">
+					<div class="yui3-g">
+						<div class="yui3-u-1-9">
+							<h4>新手指南</h4>
+							<ul class="unstyled">
+								<li>注册新会员</li>
+								<li>购物流程</li>
+								<li>退换货流程</li>
+								<li>常见问题</li>
+								<li>购物指南</li>
+							</ul>
+
+						</div>
+						<div class="yui3-u-1-9">
+							<h4>购物帮助</h4>
+							<ul class="unstyled">
+								<li>付款</li>
+								<li>配送</li>
+								<li>包裹签收</li>
+								<li>物流查询</li>
+								<li>换货及退货</li>
+							</ul>
+						</div>
+						<div class="yui3-u-1-9">
+							<h4>支付方式</h4>
+							<ul class="unstyled">
+								<li>货到付款</li>
+								<li>在线支付</li>
+								<li>分期付款</li>
+								<li>支付问题</li>
+								<li>发票说明</li>
+							</ul>
+						</div>
+						<div class="yui3-u-1-9">
+							<h4>售后服务</h4>
+							<ul class="unstyled">
+								<li>售后政策</li>
+								<li>价格保护</li>
+								<li>退款说明</li>
+								<li>返修/退换货</li>
+								<li>取消订单</li>
+							</ul>
+						</div>
+						<div class="yui3-u-1-9">
+							<h4>法律咨询</h4>
+							<ul class="unstyled">
+								<li>隐私条款</li>
+								<li>销售条款与条件</li>
+								<li>网站使用条款</li>
+								<li>行为准则</li>
+								<li>法律声明</li>
+							</ul>
+						</div>
+						<div class="yui3-u-1-7">
+							<h4>帮助中心</h4>
+							<img src="/img/wx_cz.jpg">
+						</div>
+					</div>
+				</div>
+				<div class="Mod-copyright">
+					<p>地址：太原市万柏林区公元时代城 邮编：030000 电话：400-000-0000</p>
+					<p>京ICP备08001421号京公网安备110108007702</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--页面底部END-->
+	<!--侧栏面板开始-->
+	<div class="J-global-toolbar">
+		<div class="toolbar-wrap J-wrap">
+			<div class="toolbar">
+				<div class="toolbar-panels J-panel">
+
+					<!-- 购物车 -->
+					<div style="visibility: hidden;" class="J-content toolbar-panel tbar-panel-cart toolbar-animate-out">
+						<h3 class="tbar-panel-header J-panel-header">
+							<a href="" class="title">
+								<i></i>
+								<em class="title">购物车</em>
+							</a>
+							<span class="close-panel J-close" onclick="cartPanelView.tbar_panel_close('cart');"></span>
+						</h3>
+						<div class="tbar-panel-main">
+							<div class="tbar-panel-content J-panel-content">
+								<div id="J-cart-tips" class="tbar-tipbox hide">
+									<div class="tip-inner">
+										<span class="tip-text">还没有登录，登录后商品将被保存</span>
+										<a href="#none" class="tip-btn J-login">登录</a>
+									</div>
+								</div>
+								<div id="J-cart-render">
+									<!-- 列表 -->
+									<div id="cart-list" class="tbar-cart-list">
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- 小计 -->
+						<div id="cart-footer" class="tbar-panel-footer J-panel-footer">
+							<div class="tbar-checkout">
+								<div class="jtc-number">
+									<strong class="J-count" id="cart-number">0</strong>件商品 </div>
+								<div class="jtc-sum"> 共计：
+									<strong class="J-total" id="cart-sum">¥0</strong>
+								</div>
+								<a class="jtc-btn J-btn" href="#none" target="_blank">去购物车结算</a>
+							</div>
+						</div>
+					</div>
+
+					<!-- 我的关注 -->
+					<div style="visibility: hidden;" data-name="follow" class="J-content toolbar-panel tbar-panel-follow">
+						<h3 class="tbar-panel-header J-panel-header">
+							<a href="#" target="_blank" class="title">
+								<i></i>
+								<em class="title">我的关注</em>
+							</a>
+							<span class="close-panel J-close" onclick="cartPanelView.tbar_panel_close('follow');"></span>
+						</h3>
+						<div class="tbar-panel-main">
+							<div class="tbar-panel-content J-panel-content">
+								<div class="tbar-tipbox2">
+									<div class="tip-inner">
+										<i class="i-loading"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tbar-panel-footer J-panel-footer"></div>
+					</div>
+
+					<!-- 我的足迹 -->
+					<div style="visibility: hidden;" class="J-content toolbar-panel tbar-panel-history toolbar-animate-in">
+						<h3 class="tbar-panel-header J-panel-header">
+							<a href="#" target="_blank" class="title">
+								<i></i>
+								<em class="title">我的足迹</em>
+							</a>
+							<span class="close-panel J-close" onclick="cartPanelView.tbar_panel_close('history');"></span>
+						</h3>
+						<div class="tbar-panel-main">
+							<div class="tbar-panel-content J-panel-content">
+								<div class="jt-history-wrap">
+									<ul>
+										<!--<li class="jth-item">
+										<a href="#" class="img-wrap"> <img src="../../.../portal/img/like_03.png" height="100" width="100" /> </a>
+										<a class="add-cart-button" href="#" target="_blank">加入购物车</a>
+										<a href="#" target="_blank" class="price">￥498.00</a>
+									</li>
+									<li class="jth-item">
+										<a href="#" class="img-wrap"> <img src="../../../portal/img/like_02.png" height="100" width="100" /></a>
+										<a class="add-cart-button" href="#" target="_blank">加入购物车</a>
+										<a href="#" target="_blank" class="price">￥498.00</a>
+									</li>-->
+									</ul>
+									<a href="#" class="history-bottom-more" target="_blank">查看更多足迹商品 &gt;&gt;</a>
+								</div>
+							</div>
+						</div>
+						<div class="tbar-panel-footer J-panel-footer"></div>
+					</div>
+
+				</div>
+
+				<div class="toolbar-header"></div>
+
+				<!-- 侧栏按钮 -->
+				<div class="toolbar-tabs J-tab">
+					<div onclick="cartPanelView.tabItemClick('cart')" class="toolbar-tab tbar-tab-cart" data="购物车" tag="cart">
+						<i class="tab-ico"></i>
+						<em class="tab-text"></em>
+						<span class="tab-sub J-count " id="tab-sub-cart-count">0</span>
+					</div>
+					<div onclick="cartPanelView.tabItemClick('follow')" class="toolbar-tab tbar-tab-follow" data="我的关注" tag="follow">
+						<i class="tab-ico"></i>
+						<em class="tab-text"></em>
+						<span class="tab-sub J-count hide">0</span>
+					</div>
+					<div onclick="cartPanelView.tabItemClick('history')" class="toolbar-tab tbar-tab-history" data="我的足迹" tag="history">
+						<i class="tab-ico"></i>
+						<em class="tab-text"></em>
+						<span class="tab-sub J-count hide">0</span>
+					</div>
+				</div>
+
+				<div class="toolbar-footer">
+					<div class="toolbar-tab tbar-tab-top">
+						<a href="#">
+							<i class="tab-ico  "></i>
+							<em class="footer-tab-text">顶部</em>
+						</a>
+					</div>
+					<div class="toolbar-tab tbar-tab-feedback">
+						<a href="#" target="_blank">
+							<i class="tab-ico"></i>
+							<em class="footer-tab-text ">反馈{{msg}}</em>
+						</a>
+					</div>
+				</div>
+
+				<div class="toolbar-mini"></div>
+
+			</div>
+
+			<div id="J-toolbar-load-hook"></div>
+
+		</div>
+	</div>
+	<!-- 引入组件库 -->
+	<script src="/js/vue.js"></script>
+	<script src="/js/pages/index.js"></script>
+	<script src="/js/axios.js"></script>
+	<script src="/js/moment.min.js"></script>
+	<script>
+		//过滤器
+		Vue.filter("dateFilter", function(date, formatPattern){
+			return moment(date).format(formatPattern || "YYYY-MM-DD HH:mm:ss");
+		});
+		var app = new Vue({
+			el: '#app',
+			data() {
+				return {
+					goodslist: [],
+					dateMenus:[],
+					ctim:0,
+					alltimes:[],
+					msg:''
+				}
+			},
+			methods:{
+				loadMenus:function () {
+					axios.get("/api/wseckillgoods/timeMenus").then(function (response) {
+						app.dateMenus=response.data;
+						//查询当前时间段对应的秒杀商品
+						app.searchList(app.dateMenus[0]);
+						//循环所有时间菜单
+						for(var i=0;i<app.dateMenus.length;i++){
+							//运算每个时间菜单倒计时时间差
+							if (i==0){
+								//距离结束时间
+								var x =i+1;
+								app.$set(app.alltimes,i,new Date(app.dateMenus[x]).getTime()-new Date().getTime());
+							} else{
+								//距离开始时间
+								app.$set(app.alltimes,i,new Date(app.dateMenus[i]).getTime()-new Date().getTime());
+							}
+						}
+						//查询当前时间段对应的秒杀商品
+						//时间差递减
+						let timers = window.setInterval(function () {
+							for(var i=0;i<app.alltimes.length;i++){
+								//时间递减
+								app.$set(app.alltimes,i,app.alltimes[i]-1000);
+								if(app.alltimes[i]<=0){
+									//停止倒计时
+									window.clearInterval(timers);
+									//当任意一个时间<=0的时候，需要重新刷新菜单，并刷新对应的数据
+									app.loadMenus();
+								}
+							}
+						},1000);
+					})
+				},
+				//将毫秒转换成时分秒
+				timedown:function(num) {
+					var oneSecond = 1000;
+					var oneMinute=oneSecond*60;
+					var oneHour=oneMinute*60
+					//小时
+					var hours =Math.floor(num/oneHour);
+					//分钟
+					var minutes=Math.floor((num%oneHour)/oneMinute);
+					//秒
+					var seconds=Math.floor((num%oneMinute)/oneSecond);
+					//拼接时间格式
+					var str = hours+':'+minutes+':'+seconds;
+					return str;
+				},
+				//按照时间查询秒杀商品列表
+				searchList:function (time) {
+					axios.get('/api/wseckillgoods/list?time=' + time).then(function (response) {
+						if (response.data.flag) {
+							app.goodslist = response.data.data;
+						}
+					})
+				},
+				//秒杀下单
+				add:function (id) {
+					axios.get("/api/wseckillorder/getToken").then(function (response) {
+						var random =response.data;
+						axios.get("/api/wseckillorder/add?time="+moment(app.dateMenus[0]).format("YYYYMMDDHH")+"&id="+id+"&random="+random).then(function (response) {
+							if (response.data.flag){
+								alert("抢单成功,即将进入支付");
+							} else{
+								alert("抢单失败");
+							}
+						})
+					})
+				}
+			},
+			created:function () {
+				this.loadMenus();
+			}
+		})
+	</script>
+
+</body>
+
+</html>
